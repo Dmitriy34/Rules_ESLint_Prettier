@@ -1,0 +1,83 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "node": true
+    },
+    "plugins": [
+        //"@typescript-eslint",
+        "prettier",
+        //"unicorn" ,
+        "import"
+    ],
+    "extends": [
+        "airbnb-base",
+        "eslint:recommended",
+        "plugin:import/errors",
+        "plugin:import/warnings"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 2021,
+        "sourceType": "module"
+    },
+    "ignorePatterns": ["temp.js", "**/vendor/*.js"],   // Игнорировать следующие файлы из списка
+    "rules": {   //*https://eslint.org/docs/rules/
+        "import/extensions": [
+            "error",
+            "ignorePackages",
+            {
+                "js": "never",
+                "jsx": "never",
+                "ts": "never",
+                "tsx": "never"
+            }
+        ],
+        "no-undef": "warn",     // Помогает обнаружить потенциальные ошибки ReferenceErrors, возникающие из-за неправильного написания имен переменных 
+                                // и параметров или случайных неявных глобальных переменных (например, из-за забывания ключевого слова var в инициализаторе цикла for)
+        "no-console":"off",     //=0 Если есть console.log() в коде - НЕ выводить ошибку
+        "no-debugger": "off",   //=0 Если есть debugger() в коде - НЕ выводить ошибку
+        "max-len": ["error", { "ignoreComments": true, "ignoreUrls":true }],    // Игнорировать длинные строки в комментариях
+        "no-multi-spaces": ["error", { "ignoreEOLComments": true }],            // error: Запретить несколько пробелов; В комментариях (и многострочных комментариях) игнорировать (Disallow multiple spaces)
+        "no-irregular-whitespace": ["error", { "skipComments": true }],         // запретить нерегулярные пробелы
+        "no-multiple-empty-lines": "error",                                     // запретить несколько пустых строк (disallow multiple empty lines)        
+
+        //https://www.youtube.com/watch?v=cbuBXiHeFW0&list=PLlwtdxQXoJAvMeHYm-bMyTECOjKAXLFN0&index=3&ab_channel=EasyCode
+        "no-plusplus":"off",            // запретить использовать ++ и --  (i++)
+        "eol-last":"off",               // требовать или запрещать перевод строки в конце файлов (always, never, unix, windows)
+        "no-tabs":"off",                // запретить использовать tabs
+        "no-alert":"off",               // запретить использовать alert
+        "prefer-destructuring":"off",   // предпочитать деструктуризацию из массивов и объектов (В JavaScript ES6 был добавлен новый синтаксис для создания переменных из индекса массива или свойства объекта, называемый деструктуризацией. Это правило требует использования деструктурирования вместо доступа к свойству через выражение члена.)
+        //"indent":["error", 2],        // обеспечить последовательный отступ  (tab размером 2 пробела)
+        "indent": ["warn", "tab"],      // если не Tab, то ошибка (обеспечить соблюдение последовательных отступов) (enforce consistent indentation)
+        "no-param-reassign":"off",      // Запретить переназначение параметров функции
+        
+        // данный список взят отсюда https://tproger.ru/translations/setting-up-eslint-and-prettier/
+        //"no-var": "error",               // требовать `let` или `const` вместо `var`  (require `let` or `const` instead of `var` )
+        //"prefer-const": "error",         // требуют объявления «Const» для переменных, которые никогда не переназначены после объявленного (require `const` declarations for variables that are never reassigned after declared)
+        "semi": ["error", "always"],       // требовать или запрещать точку с запятой вместо ASI (require or disallow semicolons instead of ASI)
+        "no-use-before-define": "error",   // запретить использование переменных, прежде чем они будут определены  (disallow the use of variables before they are defined)
+        "init-declarations": "error",      // требовать или запретить инициализацию в переменных объявлениях  (require or disallow initialization in variable declarations)
+        "no-cond-assign":"error",          // запретить операторы присваивания в условных операторах
+        //"eslint multiline-comment-style": ["off", "starred-block"],  //применять определенный стиль для многострочных комментариев
+        "linebreak-style": ["off", "windows"],  //обеспечить согласованный стиль разрыва строки  
+                                                  //"unix"    - (по умолчанию) использование окончаний строк Unix:    \n    для LF.
+                                                  //"windows" -   обеспечивает использование окончаний строк Windows: \r\n  для CRLF.
+
+        "space-in-parens": ["error", "always", { "exceptions": ["empty"] }], 
+        // Запретить или обеспечить пробелы внутри КРУГЛЫХ скобок  (Disallow or enforce spaces inside of parentheses)
+        /*  https://eslint.org/docs/rules/space-in-parens#disallow-or-enforce-spaces-inside-of-parentheses-space-in-parens
+        Пока вы явно не запрещаете использование пустых скобок в "empty" исключении, () это будет разрешено.
+            = "always" - Проверять отступы между скобками 
+            = "never" -  Запрещать отступы между скобками
+            = {"exceptions": ["empty"]} - Исключение для любых пустых скобок () {} []
+            = "always", {"exceptions": ["empty", "()"]} - !!! Так делать МОЖНО для () .       Исключение работает только для ().
+            = "always", {"exceptions": ["empty", "[]"]} - !!! Так делать НЕЛЬЗЯ для [] or {}. Исключение работает только для ().  */
+        
+        "comma-dangle": ["error", "always-multiline"],
+            /*  = "never" (по умолчанию) запрещает использование запятых в конце.
+                = "always" всегда требует конечных запятых 
+                = "always-multiline" требует наличия запятых в конце, когда последний элемент или свойство находится в строке, отличной от закрывающей] или}, и запрещает использование завершающих запятых, когда последний элемент или свойство находится на той же строке, что и закрывающий] или}
+                = "only-multiline" разрешает (но не требует) завершающие запятые, когда последний элемент или свойство находится на другой строке, чем закрывающая] или}, и запрещает конечные запятые, когда последний элемент или свойство находится на той же строке, что и закрывающий] или } */
+            
+    }
+}
